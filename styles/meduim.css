@@ -1,0 +1,22 @@
+@media only screen and (min-width: 32.5em) {
+    header, main, footer {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: 50px;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+    .footer-title {
+        grid-row: 1 / 2;
+    }
+    
+    .footer-last-update {
+        grid-row: 2 / 3;
+    }
+}
