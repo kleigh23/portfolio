@@ -3,15 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 2 Notes</title>\
-    <meta description="A page about week 2's studies questions I had or things I need to remember">
+    <title>Week 3 Notes</title>
+    <meta description="A page about week 3's studies questions I had or things I need to remember">
+    <link rel="stylesheet" href="small.css">
 </head>
 <body>
-    <header>Week 2 Notes</header>
+    <header>Week 3 Notes</header>
     <main>
         <h2>Questions</h2>
+        <p>I have been told how to get elements the best way is to use querySelector. But I have also been told that getElementById is the best way. What is the recommended way?</p>
+        <p>The touch events are we required to use them? When is it appropiate to use touch events?</p>
 
         <h2>Notes</h2>
+        <h3>Object methods, "this"</h3>
+        <p>Objects are usually created to represent entities of the real world, like users, orders and so on </p>
+        <p class="code">let user = { <br>
+            name: "John",<br>
+            age: 30br   
+            };</p>
+        <p>And, in the real world, a user can act: select something from the shopping cart, login, logout etc. </p>
+
+        <p>Actions are represented in JavaScript by functions in properties.
+        There exists a shorter syntax for methods in an object literal:
+        As demonstrated, we can omit "function" and just write sayHi().</p>
+
+        <p> To tell the truth, the notations are not fully identical. There are subtle differences related to object inheritance
+        (to be covered later), but for now they do not matter. In almost all cases, the shorter syntax is preferred.
+        It’s common that an object method needs to access the information stored in the object to do its job.</p>
+
+        <p> For instance, the code inside user.sayHi() may need the name of the user.
+        To access the object, a method can use the this keyword.
+        The value of this is the object “before dot”, the one used to call the method
+        Here during the execution of user.sayHi(), the value of this will be user.
+        Technically, it’s also possible to access the object without this, by referencing it via the outer variable
+        …But such code is unreliable. If we decide to copy user to another variable, 
+        e.g. admin = user and overwrite user with something else, then it will access the wrong object.
+        </p> 
+
+        <p>In JavaScript, keyword this behaves unlike most other programming languages. It can be used in any function, even if it’s not a method of an object. <br>
+        There’s no syntax error in the following example: </p>
+        <p class="code">function sayHi() { <br>
+        alert( this.name ); <br>
+        } <br>
+        The value of this is evaluated during the run-time, depending on the context.
+        For instance, here the same function is assigned to two different objects and has different “this” in the calls: <br>
+        let user = { name: "John" };
+        let admin = { name: "Admin" };
+                  
+        function sayHi() { <br>
+        alert( this.name ); <br>
+        } <br>
+                  
+        // use the same function in two objects <br>
+        user.f = sayHi; <br>
+        admin.f = sayHi; <br>
+                  
+        // these calls have different this <br>
+        // "this" inside the function is the object "before the dot" <br>
+        user.f(); // John  (this == user) <br>
+        admin.f(); // Admin  (this == admin) <br>
+                  
+        admin['f'](); // Admin (dot or square brackets access the method – doesn't matter) <br>   
+        </p>
+
+        <p>The rule is simple: if obj.f() is called, then this is obj during the call of f. So it’s either user or admin in the example above.</p>
+
+        <p>We can even call the function without an object at all:</p>
+        <p class="code">function sayHi() { <br>
+        alert(this); <br>
+        } <br>
+              
+        sayHi(); // undefined</p>
+        <p>In this case this is undefined in strict mode. If we try to access this.name, there will be an error.
+        In non-strict mode the value of this in such case will be the global object (window in a browser, we’ll get to it later in the chapter Global object). This is a historical behavior that "use strict" fixes.
+        Usually such call is a programming error. If there’s this inside a function, it expects to be called in an object context.</p>
+        <p>The consequences of unbound this
+        If you come from another programming language, then you are probably used to the idea of a "bound this", where methods defined in an object always have this referencing that object.
+        In JavaScript this is “free”, its value is evaluated at call-time and does not depend on where the method was declared, but rather on what object is “before the dot”.
+        The concept of run-time evaluated this has both pluses and minuses. On the one hand, a function can be reused for different objects. On the other hand, the greater flexibility creates more possibilities for mistakes.
+        Here our position is not to judge whether this language design decision is good or bad. We’ll understand how to work with it, how to get benefits and avoid problems.</p>
+
+        <p>Arrow functions are special: they don’t have their “own” this. If we reference this from such a function, it’s taken from the outer “normal” function.
+        For instance, here arrow() uses this from the outer user.sayHi() method:</p>
+        <p class="code">let user = { <br>
+            firstName: "Ilya", <br>
+            sayHi() { <br>
+              let arrow = () => alert(this.firstName); <br>
+              arrow(); <br>
+            } <br>
+          }; <br>
+          
+          user.sayHi(); // Ilya</p>
+         
+        <p>That’s a special feature of arrow functions, it’s useful when we actually do not want to have a separate this, but rather to take it from the outer context. Later in the chapter Arrow functions revisited we’ll go more deeply into arrow functions.</p>
+
+        <h3>Objects From JS Ninja</h3>
+        <p>An object in JavaScript is a self-contained set of related values and functions. They act as a collection of named properties that map to any JavaScript value such as strings, numbers, booleans, arrays and functions. If a property’s value is a function, it is known as a method</p>
+
+        <p>An object literal is an object that is created directly in the language by wrapping all its properties and methods in curly braces {}. Object literals are a distinguishing feature of the JavaScript language, as they allow objects to be created quickly without the need for defining a class. They also provide a useful way of organizing your code without polluting the global namespace.
+            Here is an example of an object literal that describes the Man of Steel:</p>
+        
+        <p class="code">const superman = { <br>
+            name: 'Superman', <br>
+            'real name': 'Clark Kent', <br>
+            height: 75, <br>
+            weight: 235, <br>
+            hero: true, <br>
+            villain: false, <br>
+            allies: ['Batman','Supergirl','Superboy'], <br>
+            fly() { <br>
+                return 'Up, up and away!'; <br>
+            } <br>
+        };</p>
+         <p>Each property is a key-value pair, separated by commas. In the example, the first property is called name and its value is 'Superman', while the fly() property is a method, as its value is a function, signified by the parentheses placed after it. If there were further methods after this, they would be comma-separated as well.
+            If a property’s name doesn’t follow the rules for naming variables described in Chapter 2, it needs to be quoted. The property 'real name' in the example above needs to be quoted because it contains a space.
+            All objects are mutable at any time when a program is running. This means that its properties and methods can be changed or removed, and new properties and methods can be added to the object, even if it was declared using const.</p>
+        
+        <h4>Accessing Properties</h4>
+        
+        <p>You can access the properties of an object using the dot notation that we’ve already seen in previous chapters. This will return the value of that property, as can be seen in the example below:</p>    
+        <p class="code">superman.name <br>
+            << 'Superman'</p>
+
+        <p>Dot notation is much more common, but bracket notation has a few advantages: it's the only way to access nonstandard property and method names that don’t follow the variable naming rules. It also lets you evaluate an expression and use it as the property key:</p>
+        <p class="code">superman["real" + " " + "name"] // the property is built using string concatenation <br>
+            << "Clark Kent"</p>
+        <p>If you try to access a property that doesn’t exist, undefined will be returned:</p>
+        <p class="code">superman.city <br>
+            << undefined</p>    
+
+        <h4>Calling Methods</h4>    
+        <p>To call an object’s method we can also use dot or bracket notation. Calling a method is the same as invoking a function, so parentheses need to be placed after the method name:</p>
+
+        <p class="code">superman.fly() <br>
+            << 'Up, up and away!' <br>
+            
+            superman['fly']() <br>
+            << 'Up, up and away!'</p>
+        
+        <h4>Finding all the Properties of an Object</h4>
+        
+        <p>We can loop through all of an object’s properties and methods by using a for in loop. For example, to log all the properties of the superman object to the console, we could use:</p>
+
+        <p class="code">for(const key in superman) { <br>
+            console.log(key + ": " + superman[key]); <br>
+        } <br>
+        << "name: Superman" <br>
+        << "real name: Clark Kent" <br>
+        << "height: 75" <br>
+        << "weight: 235" <br>
+        << "hero: true" <br>
+        << "villain: false" <br>
+        << "allies: Batman,Supergirl,Superboy" <br>
+        << "fly: function (){ <br>
+            console.log(\"Up, up and away!\"); <br>
+        }"</p>
+        <p>In this example, we create a variable called key. We then iterate over the properties of the superman object and use key to log the property name and superman[key] to look up the value of each property.
+            To make sure that only an object’s own properties are returned, a quick check can be implemented beforehand:</p>
+
+        <p class="code">for(const key in superman) { <br>
+            if(superman.hasOwnProperty(key)){ <br>
+                console.log(key + ": " + superman[key]); <br>
+            } <br>
+        }</p>
+
+        <p>The following methods will only iterate over an object's own properties, so a check isn't required to ensure that inherited properties are ignored.
+            The Object.keys() method will return an array of all the keys of any object that is provided as an argument. We can then iterate over this array to access all the keys of an object:</p>
+
+        <p class="code">for(const key of Object.keys(superman)) { <br>
+            console.log(key); <br>
+        } <br>
+        <<  name <br>
+            real name <br>
+            height <br>
+            weight <br>
+            hero <br>
+            villain <br>
+            allies <br>
+            fly</p> 
+
+        <p>ES2017 also adds some the Object.values() that works in the same way, but returns an array of all the object's value:</p>
+
+        <p class="code">for(const value of Object.values(superman)) { <br>
+            console.log(value); <br>
+        } <br>
+        <<  Superman <br>
+            Clark Kent <br>
+            75 <br>
+            235 <br>
+            true <br>
+            false <br>
+            [ 'Batman','Supergirl','Superboy' ] <br>
+            [Function: fly]</p>
+
+        <p>Object.entries() is also part of ES2017 and returns an array of key-value pairs. These key-value pairs are returned in arrays, but they can be destructured and accessed individually using the following notation:</p>    
+        <p class="code">for(const [key,value] of Object.entries(superman)) { <br>
+            console.log(`${key}: ${value}`); <br>
+        } <br>
+        <<  name: Superman <br>
+            real name: Clark Kent <br>
+            height: 75 <br>
+            weight: 235 <br>
+            hero: true <br>
+            villain: false <br>
+            allies: [ 'Batman','Supergirl','Superboy' ] <br>
+            fly: [Function: fly]</p>
+
+        <h4>Adding Properties</h4>
+        <p>New properties and methods can be added to objects at any time in a program. This is done by simply assigning a value to the new property. For example, if we wanted to add a new city property to our superman object, we would do it like so:</p>
+        <p class="code">superman.city = 'Metropolis'; <br>
+            << 'Metropolis'</p>
+
+        <h4>Changing Properties</h4>
+        <p>You can change the value of an object’s properties at any time using assignment. For example, we can change the value of the "real name" property like this:</p>
+        <p class="code">superman['real name'] = 'Kal-El'; <br>
+            << 'Kal-El'</p>
+
+        <h4>Removing Properties</h4>
+        <p>Any property can be removed from an object using the delete operator. For example, if we wanted to remove the fly method from the superman object, we would enter the following</p>
+        <p class="code">delete superman.fly <br>
+            << true</p>
+
+        <h3>The Document Object Model</h3>
+        <p>The Document Object Model (DOM) allows you to access elements of a web page and enable interaction with the page by adding and removing elements, changing the order, content and attributes of elements, and even altering how they are styled.</p>
+
+        <h4>What is the DOM?</h4>
+        <p>The Document Object Model, or DOM for short, represents an HTML document as a network of connected nodes that form a tree-like structure.
+            The DOM treats everything on a web page as a node. HTML tags, the text inside these tags, even the attributes of a tag are all nodes. The HTML tag is the root node, and every other part of the document is a child node of this.</p>
+
+        <h4>Chapter Summary</h4>
+        <ul>
+            <li>The Document Object Model is a way of representing a page of HTML as a tree of nodes.</li>
+            <li>The document.getElementById(), document.getElementsByClassName(), document.getElementsByTagNames() and document.querySelector() can be used to access elements on a page.</li>
+            <li>The parentNode(), previousSibling(), nextSibling(), childNodes() and children() methods can be used to navigate around the DOM tree.</li>
+            <li>An element’s attributes can be accessed using the getAttribute() method, and updated using the setAttribute() method.</li>
+            <li>The createElement() and createTextNode() methods can be used to create dynamic markup on the fly.</li>
+            <li>Markup can be added to the page using the appendChild() and insertBefore() methods.</li>
+            <li>Elements can be replaced using the replaceChild() method, and removed using the removeChild() method.</li>
+            <li>The innerHTML property can be used to insert raw HTML directly into the DOM.</li>
+            <li>The CSS properties of an element can be changed by accessing the style property.</li>
+        </ul>
+
+        <h4>Events</h4>
+        <p>We saw in the last chapter how the DOM is an interface that allows you to use JavaScript to interact with a web page. Events are another part of the DOM and they are what provides the link between the web page and user interactions. Every time a user interacts with a web page, such as clicking on a link, pressing a key, or moving a mouse, an event occurs that our program can detect and then respond to.</p>
+
+        <h4>Event Listeners</h4>
+        <p>They are like setting a notification to alert you when something happens. Instead of the program having to constantly check to see if an event has occurred, the event listener will let it know when the event happens, and the program can then respond appropriately. This allows the program to continue with other tasks while it waits for the event to happen.</p>
+
+        <h4>Inline Event Handlers</h4>
+        <p>The original way of dealing with events in the browser was to use inline attributes that were added directly into the markup. Here’s an example that adds an onclick event handler to a paragraph element:</p>
+        <p class="code">p-tags onclick="console.log('You Clicked Me!')">Click Me p-tags"</p>
+        <p>The JavaScript code inside the quote marks will be run when a user clicks on the paragraph. This method will still work in modern browsers, but it isn’t recommended for a number of reasons:</p>
+        <ul>
+            <li>The JavaScript code is mixed up with the HTML markup, breaking the concept of unobtrusive JavaScript, which advocates that JavaScript code should be kept out of the HTML.</li>
+            <li>Only one event handler for each event-type can be attached to an element.</li>
+            <li>The code for the event handlers is hidden away in the markup, making it difficult to find where these events have been declared.</li>
+            <li>The JavaScript code has to be entered in a string, so you need to be careful when using apostrophes and quote marks.</li>
+        </ul>
+        <p>For these reasons, inline event handlers are best avoided, and have only been included here for the sake of completion, and in case you see them in some code examples online.</p>
+
+        <h4>Using Event Listeners</h4>
+        <p>The addEventListener() method is called on a node object, the node to which the event listener is being applied. For example, this code will attach an event listener to the document’s body</p>
+        <p class="code">document.body.addEventListener('click',doSomething);</p>
+        <p>The addEventListener() method can also be called without a node, in which case it is applied to the global object, usually the whole browser window.
+            Its first parameter is the type of event, and the second is a callback function that is invoked when the event occurs. There is also a third parameter that we'll cover later in the chapter.</p>
+        
+        <h4>The Event Object</h4>
+        <p>Whenever an event handler is triggered by an event, the callback function is called. This function is automatically passed an event object as a parameter that contains information about the event.
+            To see an example of this, change the doSomething() function in the main.js file to this</p>
+        
+        <p class="code">function doSomething(event){ <br>
+            console.log(event.type); <br>
+        }</p>
+        <p>Now refresh the events.html page in the browser and try clicking again. You should see the following appear in the console every time you click:</p>
+        <p class="code"><< click</p>
+        <p>In the example, the type property is used to tell us that the type of event logged was a click event.</p>
+
+
+
+        
     </main>
     
 </body>
