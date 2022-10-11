@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5 Notes</title>
+    <link rel="stylesheet" href="small.css">
+</head>
+<body>
+    <header>Week 5 Notes</header>
+    <main>
+        <h2>Questions</h2>
+
+        <h2>Notes</h2>
+        <h3>Exceptions</h3>
+        <p>An exception is an error that produces a return value that can then be used by 
+            the program to deal with the error. For example, trying to call a method that 
+            is nonexistent will result in a reference error that raises an exception, as 
+            you can see in the example below when we try to call the mythical unicorn() function:</p>
+        <p class="code">unicorn(); <br>
+            >> ReferenceError: unicorn is not defined</p>
+        <h3>Stack Traces</h3>
+        <p>An exception will also produce a stack trace. This is a sequence of functions or method 
+            calls that lead to the point where the error occurred. It’s often not just a single 
+            function or method call that causes an error. A stack trace will work backwards from 
+            the point at which the error occurred to identify the original function or method that 
+            started the sequence. The example below shows how a stack trace can help you find 
+            where an error originates from:</p>
+        <p class="code">function three(){ unicorn(); } <br>
+            function two(){ three(); } <br>
+            function one(){ two(); } <br>
+            one(); <br>
+            <br>
+            >> index.html:13 Uncaught ReferenceError: unicorn is not defined <br>
+                at three (index.html:13) <br>
+                at two (index.html:17) <br>
+                at one (index.html:21) <br>
+                at index.html:24`</p>
+        <p>In this example, we have three functions: function one() invokes function two(), 
+            which then invokes function three(). Function three() then invokes the unicorn() 
+            function that doesn't exist and causes an error. We can use the stack trace to 
+            work backwards and see that this error was caused by invoking the function one() 
+            in the first place.</p>
+
+        <h3>The importabce if Testing and Debugging</h3>
+        <p>JavaScript is a very forgiving language and fails silently.
+            For this reason, a ninja programmer should ensure that the code they write fails 
+            loudly in development so any errors can be identified and fixed quickly. In production, 
+            a ninja programmer should try to make the code fail gracefully (although not completely 
+            silently ― we still need to know there’s an error), so the user experience is not 
+            affected, if possible. This is achieved by making sure exceptions are caught and 
+            dealt with, and code is tested rigorously.</p>
+        <h3>Strict Mode</h3>
+        <p>ECMAScript 5 introduced a strict mode that produces more exceptions and warnings 
+            and prohibits the use of some deprecated features. This is due to the fact that 
+            strict mode considers coding practices that were previously accepted as just being 
+            'poor style' as actual errors. Increasing the chance of errors might seem like a 
+            bad idea at first, but it’s much better to spot errors early on, rather than have them cause problems later.</p>
+        <p>Strict mode simply requires the following string to be added to the first line of a JavaScript file:</p>
+        <p class="code">'use strict';</p>
+        <p>This will be picked up by any JavaScript engine that uses strict mode. If the engine does not support strict mode, this string will simply be ignored.
+            To see it in action, if you try to assign a value to a variable that is undeclared in strict mode, you'll get an exception, instead of a warning</p>
+        <p class="code">'use strict'; <br>
+            <br>
+            e = 2.718; <br>
+            >> ReferenceError: e is not defined</p>
+        <p>You can even use strict mode on a per-function basis by adding the line inside a function.
+            Strict mode will then only be aplied to anything inside that function. <br>
+            <br>
+            Placing 'use strict' at the beginning of a file will enforce strict mode on all the 
+            JavaScript in the file. And if you’re using anybody else’s code, there’s no guarantee 
+            they’ve coded in strict mode. This technique will ensure that only your code is forced 
+            to use strict mode.
+        </p>
+        <h3>Linting Tools</h3>
+        <p>Linting tools such as JS Lint,JS Hint, and ES Lint can be used to test the quality of 
+                JavaScript code, beyond simply using strict mode. They are designed to highlight any 
+                sloppy programming practices or syntax errors, and will complain if certain style 
+                conventions are not followed, such as how code is indented.</p>
+        <h3>Feature Detection</h3>
+        <p>Programming in JavaScript can be something of a moving target as the APIs it uses are in a 
+                constant state of flux. And there are new APIs being developed as part of the HTML5 specification 
+                all the time (more on these in chapter 14). Browser vendors are constantly adding support 
+                for these new features, but they don’t always keep up. What’s more, some browsers will 
+                support certain features and others won’t. You can’t always rely on users having the 
+                most up-to-date browser, either.
+                The recommended way to determine browser support for a feature is to use feature detection. 
+                This is done using an if statement to check whether an object or method exists before trying 
+                to actually call the method. For example, say we want to use the shiny new holoDeck API 
+                (as far as I know, this doesn't actually exist ... yet), we would wrap any method calls 
+                inside the following if block</p>
+            <p class="code">if (window.holoDeck) { <br>
+                virtualReality.activate(); <br>
+                }</p>
+            <h3>Debugging the Browser</h3>
+            <p>When doing this, it can be useful to create what are known as breakpoints, which halt the 
+                progress of the code and allow us to view the value of different variables at that point 
+                in the program. There are a number of options for debugging JavaScript code in the browser.</p>
+            <h3>The Trust Alert</h3>
+            <p>
+            The most basic form of debugging is to use the alert() method to show a dialog at certain 
+                points in the code. Because alert() stops a program from running until OK is clicked, it 
+                allows us to effectively put breakpoints in the code that let us check the value of variables 
+                at that point to see if they’re what we expect them to be  
+            </p>
+            <h3>Using the console.log()</h3>
+            <p>You can use console log to help see if it in running through the functions by getting a message
+                in the console.
+            </p>
+            <h3>Debugging Tools</h3>
+            <p>One of the most useful commands is the debugger keyword. This will create a breakpoint in your 
+                code that will pause the execution of the code and allow you to see where the program is currently 
+                up to. You can also hover over any variables to see what value they hold at that point. The 
+                program can then be restarted by clicking on the 'play' button.
+                The example below shows how the debugger command can be used in the amIOldEnough() function. 
+                If you try entering the code below into your browser's console, then invoke the amIOldEnough() 
+                function, the browser's debugging tool will automatically kick in and you'll be able see the 
+                value of the age variable by hovering over it:</p>
+            <p class="code">function amIOldEnough(age){ <br>
+                debugger; <br>
+                if (age < 12) { <br>
+                debugger; <br>
+                return 'No, sorry.'; <br>
+                } else if (age < 18) { <br>
+                debugger; <br>
+                return 'Only if you are accompanied by an adult.'; <br>
+                } else { <br>
+                debugger; <br>
+                return 'Yep, come on in!'; <br>
+                } <br>
+            } <br>
+            <br>
+                amIOldEnough(16);</p>
+            <img src="images/debug_code_example.png" alt="Code example" width="900">    
+            <h3>Error Objects</h3>
+            <p>An error object can be created by the host environment when an exception occurs, or it can be 
+                created in the code using a constructor function. <br>
+            There are seven more error objects used to specific errors:</p>
+            <ul>
+                <li>EvalError is not used in the current ECMAScript specification and only retained for 
+                    backwards compatibility. It was used to identify errors when using the global eval() function.</li>
+                <li>RangeError is thrown when a number is outside an allowable range of values.</li>
+                <li>ReferenceError is thrown when a reference is made to an item that doesn’t exist. For example, calling a function that hasn't been defined.</li>
+                <li>SyntaxError is thrown when there’s an error in the code’s syntax.</li>
+                <li>TypeError is thrown when there’s an error in the type of value used; for example, a string is used when a number is expected.</li>
+                <li>URIError is thrown when there’s a problem encoding or decoding the URI.</li>
+                <li>InternalError is a non-standard error that is thrown when an error occurs in the JavaScript engine. A common cause of this too much recursion.</li>
+            </ul>
+            <p>All error objects have a number of properties, but they’re often used inconsistently across browsers. The only properties that are generally safe to use are:</p>
+            <ul>
+                <li>The name property returns the name of the error constructor function used as a string, such as 'Error' or 'ReferenceError'.</li>
+                <li>The message property returns a description of the error and should be provided as an argument to the Error constructor function.</li>
+                <li>The stack property will return a stack trace for that error. This is a non-standard property and it’s recommended that it is not safe to use in production sites.</li>
+            </ul>
+            <h3>Throwing Exceptions</h3>
+            <p>So far we’ve seen errors that are thrown automatically by the JavaScript engine when an error occurs. 
+                It’s also possible to throw your own exceptions using the throw statement. This will allow for any 
+                problems in your code to be highlighted and dealt with, rather than lurk quietly in the background. <br>
+            <br>
+            It is best practice. however, to throw an error object. This can then be caught in a catch block.</p>
+                <p class="code">throw new Error('Something has gone badly wrong!');</p>
+            <h3>Excpetion Handling</h3>
+            <p>When an exception occurs, the program terminates with an error message. <br>
+                If we suspect a piece of code will result in an exception, we can wrap it in a try block. 
+                This will run the code inside the block as normal, but if an exception occurs it will pass 
+                the error object that is thrown onto a catch block. Here’s a simple example using our squareRoot() 
+                function from earlier:</p>
+            <p class="code">function imaginarySquareRoot(number) { <br>
+                'use strict'; <br>
+                try { <br>
+                    return String(squareRoot(number)); <br>
+                } catch(error) { <br>
+                    return squareRoot(-number)+'i'; <br>
+                } <br>
+            }</p>
+            <p>The code inside the catch block will only run if an exception is thrown inside the try block. 
+                The error object is automatically passed as a parameter to the catch block. This allows us to 
+                query the error name, message and stack properties, and deal with it appropriately. In this 
+                case, we actually return a string representation of an imaginary number:</p>
+            <p class="code">imaginarySquareRoot(-49) // no error message shown <br>
+                >> '7i'</p>
+            <p>A finally block can be added after a catch block. This will always be executed after the try 
+                or catch block, regardless of whether an exception occurred or not. It is useful if you want 
+                some code to run in both cases. We can use this to modify the imaginarySquareRoot() function
+                so that it adds "+ or -" to the answer before returning it</p>
+            <p class="code">function imaginarySquareRoot(number) { <br>
+                'use strict'; <br>
+                let answer; <br>
+                try { <br>
+                    answer = String(squareRoot(number)); <br>
+                } catch(error) { <br>
+                    answer = squareRoot(-number)+"i"; <br>
+                } finally { <br>
+                    return `+ or - ${answer}`; <br>
+                } <br>
+            }</p>
+            <h3>Tests</h3>
+            <p>Testing is an important part of programming that can often be overlooked. Writing good tests 
+                means your code will be less brittle as it develops, and any errors will be identified early on.</p>
+
+    </main>
+</body>
+</html>
