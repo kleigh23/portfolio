@@ -1,35 +1,34 @@
-const form = document.forms['search'];
-const input = form.elements.searchInput;
+function TodoController ($scope) {
+	$scope.appTitle = "Katie's Awesome ToDo App";
+	$scope.appHeadline = "This one will save to local storage!";
+	$scope.saved = localStorage.getItem('todos');
+	$scope.todos = (localStorage.getItem('todos')!==null) ? JSON.parse($scope.saved) : [ {text: 'Learn AngularJS', done: false}, {text: 'Build an Angular app', done: false} ];
+	localStorage.setItem('todos', JSON.stringify($scope.todos));
 
-input.addEventListener('focus', () => console.log('focused'), false);
-input.addEventListener('blur', () => console.log('blurred'), false);
-input.addEventListener('change', () => console.log('changed'), false);
+	$scope.addTodo = function() {
+		$scope.todos.push({
+			text: $scope.todoText,
+			done: false
+		});
+		$scope.todoText = ''; //clear the input after adding
+		localStorage.setItem('todos', JSON.stringify($scope.todos));
+	};
 
-form.addEventListener('submit', search, false);
+	$scope.remaining = function() {
+		var count = 0;
+		angular.forEach($scope.todos, function(todo){
+			count+= todo.done ? 0 : 1;
+		});
+		return count;
+	};
 
-input.value = 'Search Here';
-
-input.addEventListener('focus', function(){
-  if (input.value==='Search Here') {
-    input.value = ''
-    }
-  }, false);
-
-input.addEventListener('blur', function(){
-  if(input.value == '') {
-    input.value = 'Search Here';
-    } }, false);
-
-// function search(event) {
-//   alert(`You Searched for: ${input.value}`);
-//   event.preventDefault();
-// }
-
-const form1 = document.forms['search'];
-form.addEventListener ('submit', search, false);
-
-function search(event) {
-    // alert('Form Submitted');
-    alert(`You Searched for: ${input.value}`);
-    event.preventDefault();
+	$scope.archive = function() {
+		var oldTodos = $scope.todos;
+		$scope.todos = [];
+		angular.forEach(oldTodos, function(todo){
+			if (!todo.done)
+				$scope.todos.push(todo);
+		});
+		localStorage.setItem('todos', JSON.stringify($scope.todos));
+	};
 }

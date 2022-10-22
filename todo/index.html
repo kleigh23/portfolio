@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta decsription="This app is used for keeping track of your todos.">
+    <title>Todos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="css/noramalize.css">
+    <link rel="stylesheet" href="css/small.css">
+</head>
+<body>
+    <header>
+        <h1>Todos</h1>
+    </header>
+        <main data-ng-controller="TodoController">
+            <div class="task_list">
+                <ul id="myUL">
+
+                </ul>
+            </div>
+            <div class="task_bar"> 
+                <p>Tasks left <span id="task_count"></span></p>
+                <div id="btnContainer">
+                    <button class="btn active" onclick="filterSelection('all')"> All.</button>
+                    <button class="btn" onclick="filterSelection('activeTask')"> Active.</button>
+                    <button class="btn" onclick="filterSelection('checked')"> Completed</button>
+                </div>
+
+            <footer>
+                <input type="text" id="new_task" aria-colspan="30" rows="2">
+                <!-- <textarea name="new_task" id="new_task" cols="30" rows="2"></textarea> -->
+                <span onclick="newElement()" class="addBtn">&plus;</span>
+                <!-- <button class="btn">&plus;</button> -->
+            </footer>
+            <script src="js/main.js"></script>
+        </main>
+    
+</body>
+</html>
