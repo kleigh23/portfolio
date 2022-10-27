@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7 Notes</title>
+    <link rel="stylesheet" href="small.css">
+</head>
+<body>
+    <header>Week 7 notes</header>
+    <main>
+        <h2>Questions</h2>
+
+        <h2>Notes</h2>
+        <h3>Function Properties and Methods</h3>
+        <p>Memoization: If a function takes some time to compute a return value, wecan save the result in a cache property.</p>
+        <h2>Immediatley Invoke Function Expressions</h2>
+        <p>An Immediately Invoked Function Expression – or IIFE – (pronounced 'iffy') is an anonymous function that, as the 
+            name suggests, is invoked as soon as it’s defined. This is easily achieved by placing parentheses at the end of 
+            the function definition (remember we use parentheses to invoke a function). 
+            IIFEs are a useful way of performing a task while keeping any variables wrapped up within the scope of the 
+            function. This means the global namespace is not polluted with lots of variable names.
+            There is no way to remove a variable from a scope once it’s been declared. If a variable is only required temporarily, 
+            it may cause confusion if it’s still available later in the code. Even worse, the name of the variable may clash with 
+            another piece of code (an external JavaScript library, for example) resulting in errors. Placing any code that uses 
+            the temporary variable inside an IIFE will ensure it’s only available while the IIFE is invoked, then it will disappear. </p>
+        <h3>Initialization Code</h3>
+        <p>An IIFE can be used to set up any initialization code that there’ll be no need for again. Because the code is only run 
+            once, there’s no need to create any reusable, named functions, and all the variables will also be temporary. An IIFE will 
+            be invoked once, and can set up any variables, objects and event handlers when the page loads. The following example logs 
+            a welcome message to the console, then eliminates all the temporary variables used in putting the message together:</p>
+        <p class="code">(function() { <br>
+            const name = 'Peter Parker'; // This might be obtained from a cookie in reality <br>
+            const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday', 'Friday','Saturday']; <br>
+            const date = new Date(),today = days[date.getDay()]; <br>
+            console.log(`Welcome back ${name}. Today is ${today}`); <br>
+            <br>
+        })(); <br>
+        >> 'Welcome back Peter Parker. Today is Tuesday'</p>
+        <p>Note that much of this can be achieved in ES6 by simply placing the code inside a block. This is because variables have block 
+            scope when const or let are used, whereas in previous versions of JavaScript, only functions maintained the scope of variables. 
+            The example above would work just as well using the following code:</p>
+        <p class="code">{ <br>
+            const name = 'Peter Parker'; // This might be obtained from a cookie in reality <br>
+            const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday', 'Friday','Saturday']; <br>
+            const date = new Date(),today = days[date.getDay()]; <br>
+            console.log(`Welcome back ${name}. Today is ${today}`); <br>
+        } <br>
+        >> 'Welcome back Peter Parker. Today is Tuesday'</p>
+        <h3>Safe Use of Strict Mode</h3>
+        <p>In the last chapter we discussed using strict mode to avoid any sloppy coding practices. One of the problems with simply 
+            placing 'use strict' at the beginning of a file is that it will enforce strict mode on all the JavaScript in the file, 
+            and if you’re using other people’s code, there’s no guarantee that they’ve coded in strict mode. This ensures that only your code 
+            inside the IIFE is forced to use strict mode.
+            To avoid this, the recommended way to use strict mode is to place all your code inside an IIFE, like so:</p>
+        <p class="code">(function() { <br>
+            'use strict'; <br>
+            <br>
+        // All your code would go inside this function <br>
+        <br>
+        })();</p>
+        <h2>Functions that Define and Rewrite Themselves</h2>
+        <p>They ar functions that sometimes call themselves and have if statements inside to see which part of the function to execute.</p>
+        <br>
+        <h2>Callbacks</h2>
+        <p>callback functions can send messages to the console when it has been called and others can give you info about the execution of that part of the code. <br>
+        Async Functions: These functions are preceded by the async keyword and allow you to write asynchronous code as if it were synchronous.
+        This ia achieved by using the await function operator before an asynchronous function.This will wrap the return value of the function in a promise that can then 
+        be assigned to a variable. The next line of code is not executed until the promise is resolved.</p>
+        <h2>Closures</h2>
+        <p>Closures are one of JavaScript’s most powerful features, but they can be difficult to get your head around initially.</p>
+        <h3>Function Scope</h3>
+        <p>As we saw in the example above, functions declared from within another function have access to any variables declared in the outer function’s scope.
+            A closure is formed when the inner function is returned by the outer function, maintaining access to any variables declared inside the enclosing function <br>
+            A closure is formed when a function returns another function that then maintains access to any variables created in the original function’s scope. In the 
+            following example, two variables, a and b, are created in the scope of the closure() function. This then returns an anonymous arrow function that maintains 
+            access to the variables a and b even after the closure() function has been invoked: <br>
+            Closures not only have access to variables declared in a parent function's scope, they can also change the value of these variables. This allows us to do things 
+            like create a counter() function like the one in the example below:</p>
+        <p class="code">function counter(start){ <br>
+            let i = start; <br>
+            return function() { <br>
+                return i++; <br>
+            } <br>
+        }</p>
+        <p>This function starts a count using the variable i. It then returns a function that uses a closure that traps and maintains access to the value of i. This 
+            function also has the ability to change the value of i, so it increments i by one every time it's invoked. The reference to the variable i that is defined 
+            in the original function is maintained in the new function via a closure.</p>
+        <h2>Functional Programming</h2>
+        <p>Functional programming is a programming paradigm. Other examples of programming paradigms include object oriented programming and procedural programming. 
+            JavaScript is a multi-paradigm language, meaning that it can be used to program in a variety of paradigms (and sometimes a mash-up of them!). This flexibility 
+            is an attractive feature of the language, but it also makes it harder to adopt a particular coding style as the principles are not enforced by the language.
+            A language such as Haskell, which is a purely functional language, is much stricter about adhering to the principles of functional programming.</p>
+        <h3>Ajax</h3>
+        <p>Ajax is a technique that allows web pages to communicate asynchronously with a server, and it dynamically updates web pages without reloading. This enables 
+            data to be sent and received in the background, as well as portions of a page to be updated in response to user events, while the rest of the program continues to run.
+            The use of Ajax revolutionized how websites worked, and ushered in a new age of web applications. Web pages were no longer static, but dynamic applications.</p>
+        <h3>Clients and Servers</h3>
+        <p>JavaScript was originally designed as a client-side scripting language, meaning that it ran locally in the browser, adding dynamic features to the web page that 
+            was returned from the server. Ajax allows JavaScript to request resources from a server on behalf of the client. The resources requested are usually JSON data 
+            or small fragments of text or HTML rather than a whole web page.
+            Consequently, a server is required when requesting resources using Ajax. Typically this involves using a server-side language, such as PHP, Ruby, Node.js, or 
+            .NET to serve the data response following an Ajax request (usually from a back-end database). To practice using Ajax, you can either set up a local development 
+            server on your own computer, or request the files from an external website that uses cross-origin resource sharing (CORS) in order to avoid the same-origin 
+            policy that browsers enforce. All the examples in this chapter can be run without having to set up a local development server, although it may be worth 
+            looking into if you wish to do a lot of Ajax or server-side development.</p>
+        <h4>Asynchronous</h4>
+        <p>When a request for data is sent, the program doesn’t have to stop and wait for the response. It can carry on running, waiting for an event to fire when a response 
+            is received. By using callbacks to manage this, programs are able to run in an efficient way, avoiding lag as data is transferred back and forth.</p>
+        <h4>JavaScript</h4>
+        <p>JavaScript was always considered a 'front-end' language, not used to communicate with the server. Ajax enabled JavaScript to send requests and receive responses 
+            from a server, allowing content to be updated in real time.</p>
+        <h4>XML</h4>
+        <p>When the term Ajax was originally coined, XML documents were often used to return data. Many different types of data can be sent, but by far the most commonly 
+            used in Ajax nowadays is JSON, which is more lightweight and easier to parse than XML. (Although it has never really taken off, the term Ajaj is sometimes 
+            used to describe the technique.) JSON also has the advantage of being natively supported in JavaScript, so you can deal with JavaScript objects rather than 
+            having to parse XML files using DOM methods.</p>
+        
+
+        </main>
+</body>
+</html>
