@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="This will be a page of my notes from the readings this week.">
+    <title>Week 9 Notes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Questions</h1>
+    <h1>Notes</h1>
+    <h2>The Window Object</h2>
+    <p>Every JavaScript environment has a global object. Any variables that are created in the global scope are actually 
+        properties of this object, and any functions are methods of it. In a browser environment the global object is the
+         window object, which represents the browser window that contains a web page. <br> <br>
+    The Browser Object Model: The Browser Object Model (or BOM for short) is a collection of properties and methods that contain information about the browser and computer screen. 
+    There is no official standard for the BOM, although there are a number of properties and methods that are supported by all the 
+    major browsers, making a sort of de facto standard. These properties and methods are made available through the window object. 
+    Every browser window, tab, popup, frame, and iframe has a window object. When you are wanting to send a messae to the window you would type somethin like this.</p>
+    <p class="code">window.alert('Hello');</p>
+    <p>Here are some other you can use depending on what you are wanting to send to the user.</p>
+    <p class="code">window.confirm('D you wish to continue?')' <br>
+    window.prompt('Please enter your name:');</p>
+    <h2>HTML5 API's</h2>
+    <p>The data- Attribute: The data- attribute is a way of embedding data in a web page using custom attributes that are ignored 
+        by the browser. They’re also private to a page, so are not intended to be used by an external service – their sole purpose 
+        is to be used by a JavaScript program. This means they’re perfect for adding data that can be used as a hook that the program 
+        utilizes to access information about a particular element on the page. The names of these attributes can be decided by the developer, 
+        but they must use the following format: <br> <br>
+    Start with data- <br>
+    Contain only lowercase letters, numbers, hyphens, dots, colons or underscores. <br>
+    Include an optional string value. <br>
+    Examples could be:</p>
+    <p class="code">data-powers = 'flight superSpeed' <br>
+        data-rating = '5'  <br>
+        data-dropdown  <br>
+        data-user = 'DAZ'  <br>
+        data-max-length = '32'</p>
+    <p>The rest of the chapter covers more about webstroage API's (key-value pairs) <br>
+    and Geolocation API and web worker API and few more.</p>
+    
+</body>
+</html>
