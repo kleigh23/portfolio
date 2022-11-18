@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta description="This page is all my notes from week 10 readings">
+    <title>Week 10 Notes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Questions</h1>
+    <h1>Notes</h1>
+    <h2>Client-Side Form Validation</h2>
+    <p>Before submitting data to the server, it is important to ensure all required form controls are filled out, in the correct format. 
+        This is called client-side form validation, and helps ensure data submitted matches the requirements set forth in the various form controls.
+    You can use client-side validation but you shouln't just use this you should use some server side validation.</p>
+    <h2>What is client-side validation?</h2>
+    <p>Client-side validation is when you put requirements in the input tag to make sure the data the user is entering is what the form si asking. Here are some common ones:</p>
+    <p>"This field is required" (You can't leave this field blank). <br> <br> 
+        "Please enter your phone number in the format xxx-xxxx" (A specific data format is required for it to be considered valid). <br> <br>
+        "Please enter a valid email address" (the data you entered is not in the right format). <br> <br>
+        "Your password needs to be between 8 and 30 characters long and contain one uppercase letter, one symbol, and a number." (A very specific data format is required for your data). <br> <br></p>
+    <h2>Different types of Client-side validation</h2>
+    <p>Built in's with HTML <br> <br>
+    JavaScript</p>
+    <h2>Validating with JavaScript</h2>
+    <p>You must use JavaScript if you want to take control over the look and feel of native error messages. In this section we will look at the different ways to do this. <br>
+        Most browsers support the Constraint Validation API, which consists of a set of methods and properties available on the following form element DOM interfaces:</p>
+    <p>HTMLButtonElement (represents a button element) <br> <br>
+        HTMLFieldSetElement (represents a fieldset element) <br> <br>
+        HTMLInputElement (represents an input element) <br> <br>
+        HTMLOutputElement (represents an output element) <br> <br>
+        HTMLSelectElement (represents a select element) <br> <br>
+        HTMLTextAreaElement (represents a textarea element)</p>
+    <p>The Constraint validation API makes the following properties available on the above elements.</p>
+    <p>validationMessage: Returns a localized message describing the validation constraints that the control doesn't satisfy (if any). If the control is not a candidate for constraint validation (willValidate is false) or the element's value satisfies its constraints (is valid), this will return an empty string. <br> <br>
+        validity: Returns a ValidityState object that contains several properties describing the validity state of the element. You can find full details of all the available properties in the ValidityState reference page; below is listed a few of the more common ones: <br> <br>
+        patternMismatch: Returns true if the value does not match the specified pattern, and false if it does match. If true, the element matches the :invalid CSS pseudo-class. <br> <br>
+        tooLong: Returns true if the value is longer than the maximum length specified by the maxlength attribute, or false if it is shorter than or equal to the maximum. If true, the element matches the :invalid CSS pseudo-class. <br> <br>
+        tooShort: Returns true if the value is shorter than the minimum length specified by the minlength attribute, or false if it is greater than or equal to the minimum. If true, the element matches the :invalid CSS pseudo-class. <br> <br>
+        rangeOverflow: Returns true if the value is greater than the maximum specified by the max attribute, or false if it is less than or equal to the maximum. If true, the element matches the :invalid and :out-of-range CSS pseudo-classes. <br> <br>
+        rangeUnderflow: Returns true if the value is less than the minimum specified by the min attribute, or false if it is greater than or equal to the minimum. If true, the element matches the :invalid and :out-of-range CSS pseudo-classes. <br> <br>
+        typeMismatch: Returns true if the value is not in the required syntax (when type is email or url), or false if the syntax is correct. If true, the element matches the :invalid CSS pseudo-class. <br> <br>
+        valid: Returns true if the element meets all its validation constraints, and is therefore considered to be valid, or false if it fails any constraint. If true, the element matches the :valid CSS pseudo-class; the :invalid CSS pseudo-class otherwise. <br> <br>
+        valueMissing: Returns true if the element has a required attribute, but no value, or false otherwise. If true, the element matches the :invalid CSS pseudo-class. <br> <br>
+        willValidate: Returns true if the element will be validated when the form is submitted; false otherwise.</p>
+
+    <h1>The next reading was on using fetch for API there was a lot of good informtation and I saved the link to that page.</h1>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Link to using fetch</a> <br> <br>
+
+
+    
+</body>
+</html>
