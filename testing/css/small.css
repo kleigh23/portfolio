@@ -1,0 +1,50 @@
+body {
+    padding: 1rem;
+    font-family: 'Roboto Mono', monospace;
+    display: grid;
+    
+    grid-template-columns: 1fr 1fr;
+}
+
+h1 {
+    grid-column: 1 / 3;
+    text-align: center;
+}
+
+#elementName {
+    grid-column: 1 / 2;
+    text-align: center;
+}
+
+#imgElements {
+    grid-column: 1 / 2;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+#weaponName {
+    grid-column: 2 / 3;
+    text-align: center;
+    grid-row: 2 / 3;
+}
+
+#imgWeapon {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+#CharacterName {
+    grid-column: 1 / 3;
+    text-align: center;
+}
+
+#imgCharacter {
+    grid-column: 1 / 3;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
