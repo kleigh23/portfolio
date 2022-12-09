@@ -1,5 +1,5 @@
 let characterName = localStorage.getItem("characterName");
-let URL = "http://api.genshin.dev/characters/" + characterName
+let URL = "https://api.genshin.dev/characters/" + characterName
 
 const description = document.querySelector("#description");
 
